@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Lista Categoria</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+	</head>
+	<body>
+	<section class="ftco-section">
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	    	<a class="navbar-brand">Cine<span>Romero</span></a>
+	    	<form action="#" class="searchform order-sm-start order-lg-last">
+          <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" name="stringFind"
+			id="stringFind" size="50" th:value="${keyword}">
+            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+          </div>
+        </form>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/categoria/add}"  class="nav-link">Añadir Categoria</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/articulo/add}"  class="nav-link">Añadir Pelicula</a></li>
+	        	<li class="nav-item active"><a th:href="@{/categoria/list}" class="nav-link">Lista de Categorias</a></li>
+	        	<li class="nav-item"><a th:href="@{/articulo/list}" class="nav-link">Lista de Artículos</a></li>
+	          	<li class="nav-item"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username},name=${#authentication.principal.first_name})}" class="nav-link">Modificar tus datos</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/usuario/list}"  class="nav-link">Lista de Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link" th:text=${#authentication.name}></a></li>
+				<li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
+				
+			</ul>
+	      </div>
+	    </div>
+	  </nav>
+
+
+		<div class="starter-template">
+			<h1>Categorias</h1>
+			<div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th><a
+								th:href="@{'/categoria/list?sortField=id&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword}}">ID</a></th>
+							<th><a
+								th:href="@{'/categoria/list?sortField=genres&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword}}">GÉNEROS</a></th>
+							<th><a
+								th:href="@{'/categoria/list?sortField=descriptionCategory&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword}}">DESCRIPCION
+									CATEGORIA</a></th>
+							
+							</tr>
+
+
+
+
+
+
+						<!--
+						<div class="container">
+							<form class="form-horizontal" method="GET"
+								action="/categoria/add">
+								<fieldset>
+									<!-- Button 
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="addCategory"></label>
+										<div class="col-md-4">
+											<button id="addUser" name="addMovie" class="btn btn-primary">Add
+												Category</button>
+										</div>
+									</div>
+
+								</fieldset>
+							</form>-->
+							
+							
+							
+
+								
+						
+									<tbody>
+										<tr th:each="category :${categoryList}">
+											<td th:text="${category.id}"></td>
+											<td th:text="${category.genres}"></td>
+											<td th:text="${category.descriptionCategory}"></td>
+
+											<td><label class="col-md-4 control-label" for="singlebutton"></label>
+												<a th:href="@{'/articulo/list'(idCategoria=${category.id})}">
+													<button id="singlebutton" name="singlebutton"
+														class="btn btn-primary">Ver articulos</button>
+												</a>
+											
+							<td><span th:if="${#authentication.principal.role == 'ADMIN'}"><a
+												th:href="@{'/categoria/delete'(id=${category.id},genres=${category.genres},descriptionCategory=${category.descriptionCategory})}">
+													<button class="btn btn-danger" >Borrar</button>
+											</a></td></span>
+
+											<td><span th:if="${#authentication.principal.role == 'ADMIN'}"><a
+												th:href="@{'/categoria/update'(id=${category.id},genres=${category.genres},descriptionCategory=${category.descriptionCategory})}">
+													<button  class="btn btn-warning">Actualizar</button>
+											</a></td></span>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+		<div>
+			Total Items: <a th:text="${totalItems}" /> <a
+				th:if="${currentPage > 1}"
+				th:href="@{'/categoria/list?pageNumber=1&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}">
+				First</a> <span th:unless="${currentPage > 1}">First</span> <a
+				th:if="${currentPage > 1}"
+				th:href="@{'/categoria/list?pageNumber=' + ${currentPage - 1} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}">Previous</a>
+			<span th:unless="${currentPage > 1}">Previous</span> <span
+				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+				th:if="${currentPage != i}"
+				th:href="@{'/categoria/list?pageNumber=' + ${i} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}"
+				th:text="${i}"></a> <span th:unless="${currentPage != i}"
+				th:text="${i}"></span> &nbsp;
+
+			</span> <a th:if="${currentPage < totalPages}"
+				th:href="@{'/categoria/list?pageNumber=' + ${currentPage + 1} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}">Next</a>
+			<span th:unless="${currentPage < totalPages}">Next</span> <a
+				th:if="${currentPage < totalPages}"
+				th:href="@{'/categoria/list?pageNumber=' + ${totalPages} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}">Last</a>
+			<span th:unless="${currentPage < totalPages}">Last</span>
+		</div>
+		
+		</section>
+
+	<script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/main.js"></script>
+
+	</body>
+</html>
+

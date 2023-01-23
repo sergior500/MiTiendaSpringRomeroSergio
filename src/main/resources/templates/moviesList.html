@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Lista Peliculas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/css/style.css">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	    	<a class="navbar-brand">Cine<span>Romero</span></a>
+	    	<form action="#" class="searchform order-sm-start order-lg-last">
+          <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" name="stringFind"
+			id="stringFind" size="50" th:value="${keyword}">
+            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+          </div>
+        </form>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/categoria/add}"  class="nav-link">Añadir Categoria</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/articulo/add}"  class="nav-link">Añadir Pelicula</a></li>
+	        	<li class="nav-item"><a th:href="@{/categoria/list}" class="nav-link">Lista de Categorias</a></li>
+	        	<li class="nav-item active"><a th:href="@{/articulo/list}" class="nav-link">Lista de Artículos</a></li>
+	          	<li class="nav-item"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username},name=${#authentication.principal.first_name})}" class="nav-link">Modificar tus datos</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/usuario/list}"  class="nav-link">Lista de Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link" th:text=${#authentication.name}></a></li>
+				<li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
+				
+			</ul>
+	      </div>
+	    </div>
+	  </nav>
+
+
+
+		<div class="starter-template">
+			<h1>Listado de Elementos</h1>
+			<div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th><a
+								th:href="@{'/articulo/list?sortField=id&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">ID</a></th>
+							<th><a
+								th:href="@{'/articulo/list?sortField=title&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">TITULO</a></th>
+							<th><a
+								th:href="@{'/articulo/list?sortField=descriptionMovie&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">DESCRIPCION
+									MOVIE</a></th>
+							<th><a
+								th:href="@{'/articulo/list?sortField=price&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">PRECIO</a></th>
+							<th><a
+								th:href="@{'/articulo/list?sortField=category&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">CATEGORIA
+							</a></th>
+							<th><a
+								th:href="@{'/articulo/list?sortField=stock&pageNumber='+ ${currentPage} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">STOCK
+							</a></th>
+							<th></th>
+						</tr>
+
+
+						<!---
+	<form class="form-horizontal" method="GET" action="/articulo/add">
+            <fieldset>
+                <!-- Button
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="addMovie"></label>
+                    <div class="col-md-4">
+                        <button id="addUser" name="addMovie" class="btn btn-primary">Add
+                            Movie</button>
+                    </div>
+                </div> 
+
+            </fieldset>
+        </form> -->
+					</thead>
+					<tbody>
+						<tr th:each="movie :${moviesList}">
+							<td th:text="${movie.id}"></td>
+							<td th:text="${movie.title}"></td>
+							<td th:text="${movie.descriptionMovie}"></td>
+							<td th:text="${movie.price}"></td>
+							<td th:text="${movie.category.genres}"></td>
+							<td th:text="${movie.stock}"></td>
+
+							<td><span th:if="${#authentication.principal.role == 'ADMIN'}"><a
+								th:href="@{'/articulo/delete'(id=${movie.id},title=${movie.title})}">
+									<button class="btn btn-danger">Borrar</button>
+							</a></td></span>
+
+							<td><span th:if="${#authentication.principal.role == 'ADMIN'}"><a
+								th:href="@{'/articulo/update'(id=${movie.id},title=${movie.title})}">
+									<button class="btn btn-warning">Actualizar</button>
+							</a></td></span>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			Total Items: <a th:text="${totalItems}" /> <a
+				th:if="${currentPage > 1}"
+				
+				th:href="@{'/articulo/list?pageNumber=1&sortField=' + ${sortField} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">
+				First</a> <span th:unless="${currentPage > 1}">First</span> <a
+				th:if="${currentPage > 1}"
+				
+				th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">Previous</a>
+			<span th:unless="${currentPage > 1}">Previous</span> <span
+				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+				
+				th:if="${currentPage != i}"
+				th:href="@{'/articulo/list?pageNumber=' + ${i} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}"
+				th:text="${i}"></a> <span th:unless="${currentPage != i}"
+				th:text="${i}"></span> &nbsp;
+				
+			</span> <a th:if="${currentPage < totalPages}"
+				th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">Next</a>
+			<span th:unless="${currentPage < totalPages}">Next</span> <a
+			
+				th:if="${currentPage < totalPages}"
+				th:href="@{'/articulo/list?pageNumber=' + ${totalPages} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword} +'&idCategoria='+${idCategoria}}">Last</a>
+			<span th:unless="${currentPage < totalPages}">Last</span>
+		</div>
+	</div>
+	</section>
+
+	<script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
