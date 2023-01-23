@@ -49,14 +49,14 @@
 <section class="get-in-touch">
    <h1 class="title">Update Usuario</h1>
    <form class="contact-form row" th:action="@{/usuario/update/submit}"
-		th:object="${user}" th:method="POST">
+		th:object="${user}" th:method="POST" enctype="multipart/form-data">
 	<input type="hidden" value="${user.username}" th:field="*{username}">
       <div class="form-field col-lg-6">
-         <input id="password" name="password" th:field="*{password}" class="input-text js-input" type="password" required>
+         <input id="password" name="password" th:field="*{password}" class="input-text js-input" type="password">
          <label class="label" for="password">Password</label>
       </div>
       <div class="form-field col-lg-6 ">
-         <input id="repeatpassword" class="input-text js-input" type="password" required>
+         <input id="repeatpassword" class="input-text js-input" type="password">
          <label class="label" for="repeatpassword" name="repeatpassword">Repeat Password</label>
       </div>
       <div class="form-field col-lg-6 ">
@@ -67,6 +67,9 @@
        <input id="email" name="email" type="email" placeholder=""
 						class="input-text js-input" th:field="*{email}" required>
          <label class="label" for="email">e-mail</label>
+      </div>
+      <input id="file" name="file" type="file" placeholder="Image"
+						class="input-text js-input" required>
       </div>
       <div class="form-field col-lg-12">
          <input class="submit-btn" type="submit" value="Submit">

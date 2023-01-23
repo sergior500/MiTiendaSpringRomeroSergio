@@ -16,16 +16,15 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
+CREATE DATABASE miTiendaSpringRomeroSergio;
 --
 -- Base de datos: `miTiendaSpringRomeroSergio`
 --
 USE `miTiendaSpringRomeroSergio`;
 --
+-- --------------------------------------------------------
  CREATE USER 'romero'@'%' IDENTIFIED BY 'sergio';
  GRANT ALL PRIVILEGES ON miTiendaSpringRomeroSergio.* to 'romero'@'%';
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `category`
 --
@@ -216,16 +215,17 @@ CREATE TABLE `users` (
   `enabled` bit(1) NOT NULL,
   `email` varchar(30) NOT NULL,
   `verification_code` varchar(255) DEFAULT NULL,
-  `admin` bit(1) NOT NULL
+  `admin` bit(1) NOT NULL,
+  `image` varchar(300) DEFAULT 'https://res.cloudinary.com/df7eewfeo/image/upload/v1674464819/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail_cnj3wp.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `first_name`, `role`, `verificationCode`, `enabled`, `email`, `verification_code`, `admin`) VALUES
-('admin', '$2a$10$xDMWmsMMgu4PoKuFqdduFuz2wLzqAJPrwds0qXXjT1tARB7O4RIvy', 'admin', 'ADMIN', NULL, b'1', 'romeroromerosergio@gmail.com', 'lr6RaxkqszesVhlDaiOAUIuFiYKmI1A4eTP1BrzLht4nZYmVgFEiWICHr6L7hIMW', b'0'),
-('sergio', '$2a$10$fuUASL7nRmIjqhU3zRyXk.TdoQ2ucviNTeHCglADGmzAWpvsttOCy', 'sergio', 'USER', NULL, b'1', 'sergior500@gmail.com', 'DbJQMfxZrOO9iZoVVvsXaAWBvslncPRYsT5lAcdx2n6mTX85K5CtpVabuBLsUFLI', b'0');
+INSERT INTO `users` (`username`, `password`, `first_name`, `role`, `verificationCode`, `enabled`, `email`, `verification_code`, `admin`, `image`) VALUES
+('admin', '$2a$10$xDMWmsMMgu4PoKuFqdduFuz2wLzqAJPrwds0qXXjT1tARB7O4RIvy', 'admin', 'ADMIN', NULL, b'1', 'romeroromerosergio@gmail.com', 'lr6RaxkqszesVhlDaiOAUIuFiYKmI1A4eTP1BrzLht4nZYmVgFEiWICHr6L7hIMW', b'0', 'https://res.cloudinary.com/df7eewfeo/image/upload/v1674464819/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail_cnj3wp.png'),
+('sergio', '$2a$10$fuUASL7nRmIjqhU3zRyXk.TdoQ2ucviNTeHCglADGmzAWpvsttOCy', 'sergio', 'USER', NULL, b'1', 'sergior500@gmail.com', 'DbJQMfxZrOO9iZoVVvsXaAWBvslncPRYsT5lAcdx2n6mTX85K5CtpVabuBLsUFLI', b'0', 'http://res.cloudinary.com/df7eewfeo/image/upload/v1674464189/tcsirlhnquwilbcpownh.jpg');
 
 --
 -- Índices para tablas volcadas

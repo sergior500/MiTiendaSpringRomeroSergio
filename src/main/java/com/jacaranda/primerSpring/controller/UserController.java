@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jacaranda.primerSpring.model.Users;
 import com.jacaranda.primerSpring.service.UserLoginService;
@@ -98,8 +99,10 @@ public class UserController {
 	}
 	
 	@PostMapping("usuario/update/submit")
-	public String updateUserSubmit(@ModelAttribute Users user) {
-		
+	public String updateUserSubmit(@ModelAttribute Users user,
+	@RequestParam("file") MultipartFile File) {
+		String url = service.uploadFile(File);
+		user.setImage(url);
 		service.updateUser(user);
 		
 		return "redirect:/categoria/list";

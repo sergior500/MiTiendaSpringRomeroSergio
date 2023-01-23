@@ -24,6 +24,7 @@ public class Users implements UserDetails {
 		private String verificationCode;
 		private boolean enabled;
 		private String role;
+		private String image;
 
 	public Users() {
 		// TODO Auto-generated constructor stub
@@ -42,6 +43,21 @@ public class Users implements UserDetails {
 		this.verificationCode = verificationCode;
 		this.enabled = enabled;
 		this.role = role;
+		this.image = null;
+	}
+	
+	public Users(String username, String password, String first_name, String email, boolean admin,
+			String verificationCode, boolean enabled, String role, String image) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.first_name = first_name;
+		this.email = email;
+		this.admin = admin;
+		this.verificationCode = verificationCode;
+		this.enabled = enabled;
+		this.role = role;
+		this.image = image;
 	}
 
 
@@ -96,6 +112,18 @@ public class Users implements UserDetails {
 
 	public boolean isAdmin() {
 		return admin;
+	}
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 
