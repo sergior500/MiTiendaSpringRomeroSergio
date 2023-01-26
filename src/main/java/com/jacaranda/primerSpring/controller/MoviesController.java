@@ -1,6 +1,5 @@
 package com.jacaranda.primerSpring.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jacaranda.primerSpring.model.Carrito;
 import com.jacaranda.primerSpring.model.Movies;
-import com.jacaranda.primerSpring.model.Users;
 import com.jacaranda.primerSpring.service.CategoryService;
 import com.jacaranda.primerSpring.service.MoviesService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -25,13 +26,36 @@ public class MoviesController {
 	private static final String REDIRECT_ITEM = "redirect:/articulo/list";
 	
 	
-	
+	@Autowired
+	private HttpSession http;
 	
 	@Autowired
 	private MoviesService service;
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	
+	@GetMapping({"/articulo/carrito/add"})
+	public String addCarrito(Model model, @RequestParam("quantity")Integer quant, @RequestParam("id")Integer id) {
+		
+		Movies m1 = service.getItem(id);
+		
+		Carrito c1 = (Carrito) http.getAttribute("c1");
+		
+		if (c1 == null) {
+			c1 = new Carrito();
+		}
+		
+		if(m1 != null && quant > 0) {
+			c1.addCarrito(m1, quant);
+			http.setAttribute("c1", c1);
+		}
+		
+		
+		return REDIRECT_ITEM;
+		
+	}
 	
 	@GetMapping({"/articulo/list" })
 	public String getElements(Model model, @RequestParam("pageNumber") Optional<Integer> pageNumber,
@@ -103,13 +127,6 @@ public class MoviesController {
 		
 		return REDIRECT_ITEM;
 	}
-//	
-//	@GetMapping("articulo/list")
-//	public String itemList(Model model) {
-//		List<Movies> movies = service.getItems();
-//		model.addAttribute("movies", movies);
-//		
-//		return "moviesList";
-//	}
+
 
 }

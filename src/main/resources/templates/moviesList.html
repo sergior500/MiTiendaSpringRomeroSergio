@@ -70,21 +70,6 @@
 							<th></th>
 						</tr>
 
-
-						<!---
-	<form class="form-horizontal" method="GET" action="/articulo/add">
-            <fieldset>
-                <!-- Button
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="addMovie"></label>
-                    <div class="col-md-4">
-                        <button id="addUser" name="addMovie" class="btn btn-primary">Add
-                            Movie</button>
-                    </div>
-                </div> 
-
-            </fieldset>
-        </form> -->
 					</thead>
 					<tbody>
 						<tr th:each="movie :${moviesList}">
@@ -104,6 +89,13 @@
 								th:href="@{'/articulo/update'(id=${movie.id},title=${movie.title})}">
 									<button class="btn btn-warning">Actualizar</button>
 							</a></td></span>
+							<td>
+							<form th:action="@{/articulo/carrito/add}">
+								<input name = "id" type="hidden" th:value="${movie.id}"></input> 
+								<input name = "quantity" type ="number" min="1" th:max="${movie.stock}">
+								<button class="btn btn-warning" type="submit">Add to Cart</button>
+							</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>

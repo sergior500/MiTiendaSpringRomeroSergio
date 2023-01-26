@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Users implements UserDetails {
@@ -25,6 +27,8 @@ public class Users implements UserDetails {
 		private boolean enabled;
 		private String role;
 		private String image;
+		@OneToMany(mappedBy = "username")
+		private List<Orders> orders;
 
 	public Users() {
 		// TODO Auto-generated constructor stub
@@ -44,6 +48,7 @@ public class Users implements UserDetails {
 		this.enabled = enabled;
 		this.role = role;
 		this.image = null;
+		this.orders = new ArrayList<Orders>();
 	}
 	
 	public Users(String username, String password, String first_name, String email, boolean admin,

@@ -29,9 +29,6 @@ public class MoviesService {
 		return repository.findAll();
 	}
 	
-	public Movies findById(int id) {
-		return repository.findById(id).orElse(null);
-	}
 	
 	public Page<Movies> findAll(int pageNum, int pageSize, String sortFile, String stringFind, Integer idCategory) {
 		Pageable pageable = PageRequest.of(pageNum -1, pageSize, Sort.by(sortFile).ascending());

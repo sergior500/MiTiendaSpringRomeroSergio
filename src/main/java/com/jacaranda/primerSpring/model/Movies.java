@@ -1,5 +1,6 @@
 package com.jacaranda.primerSpring.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity	
 public class Movies {
@@ -21,7 +23,9 @@ public class Movies {
 	@ManyToOne
 	@JoinColumn (name="category_id")
 	private Category category;
-	
+	@OneToMany
+	@JoinColumn(name="id_movie")
+	private List<Purchase> purchases;
 	
 
 	
