@@ -1,0 +1,39 @@
+<!DOCTYPE>
+<html>
+<body>
+
+<div class="starter-template">
+			<h1>Listado de Elementos</h1>
+			<div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Category</th>
+							<th>Price</th>
+							<th>Quantity</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr th:each="movie :${moviesList.keySet()}">
+							<td th:text="${movie.title}"></td>
+							<td th:text="${movie.category.genres}"></td>
+							<td th:text="${movie.price}"></td>
+							<td th:text="${moviesList.get(movie)}"></td>
+							
+
+						<!--  	<td><span th:if="${#authentication.principal.role == 'ADMIN'}"><a
+								th:href="@{'/articulo/delete'(id=${movie.id},title=${movie.title})}">
+									<button class="btn btn-danger">Borrar</button>
+							</a></td></span>-->
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+</body>
+</html>

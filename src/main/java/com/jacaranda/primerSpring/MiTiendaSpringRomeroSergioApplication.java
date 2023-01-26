@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Bean;
 import com.cloudinary.Cloudinary;
 
 @SpringBootApplication
-public class MiTiendaSpringVillarrealVicenteApplication {
+public class MiTiendaSpringRomeroSergioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MiTiendaSpringVillarrealVicenteApplication.class, args);
+		SpringApplication.run(MiTiendaSpringRomeroSergioApplication.class, args);
 	}
 	@Bean
 	public Cloudinary cloudinaryConfig() {

@@ -36,26 +36,7 @@ public class MoviesController {
 	private CategoryService categoryService;
 	
 	
-	@GetMapping({"/articulo/carrito/add"})
-	public String addCarrito(Model model, @RequestParam("quantity")Integer quant, @RequestParam("id")Integer id) {
-		
-		Movies m1 = service.getItem(id);
-		
-		Carrito c1 = (Carrito) http.getAttribute("c1");
-		
-		if (c1 == null) {
-			c1 = new Carrito();
-		}
-		
-		if(m1 != null && quant > 0) {
-			c1.addCarrito(m1, quant);
-			http.setAttribute("c1", c1);
-		}
-		
-		
-		return REDIRECT_ITEM;
-		
-	}
+
 	
 	@GetMapping({"/articulo/list" })
 	public String getElements(Model model, @RequestParam("pageNumber") Optional<Integer> pageNumber,
