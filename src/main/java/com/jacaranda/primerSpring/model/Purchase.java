@@ -15,13 +15,13 @@ public class Purchase {
 	@Id
 	@ManyToOne
 	@JoinColumn(
-            name="id_movie", insertable = true, updatable=true
+            name="id_movie"
             )
 	private Movies movie;
 	@Id
 	@ManyToOne
 	@JoinColumn(
-            name="id_purchase", insertable = true, updatable=true
+            name="id_purchase"
             )
 	private Orders order;
 	

@@ -3,6 +3,7 @@ package com.jacaranda.primerSpring.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +24,7 @@ public class Movies {
 	@ManyToOne
 	@JoinColumn (name="category_id")
 	private Category category;
-	@OneToMany
-	@JoinColumn(name="id_movie")
+	@OneToMany(mappedBy="movie")
 	private List<Purchase> purchases;
 	
 

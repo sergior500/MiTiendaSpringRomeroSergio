@@ -63,7 +63,10 @@ public class CarritoController {
 	public String getCarrito(Model model) {
 		
 		Carrito c = (Carrito) http.getAttribute("c1");
-
+		
+		if (c == null) {
+			c = new Carrito();
+		}
 		model.addAttribute("moviesList",c.getMoviesMap());
 		
 		return "listaCarrito";	
