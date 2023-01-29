@@ -33,9 +33,10 @@
 				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/articulo/add}"  class="nav-link">Añadir Pelicula</a></li>
 	        	<li class="nav-item active"><a th:href="@{/categoria/list}" class="nav-link">Lista de Categorias</a></li>
 	        	<li class="nav-item"><a th:href="@{/articulo/list}" class="nav-link">Lista de Artículos</a></li>
-	          	<li class="nav-item"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username},name=${#authentication.principal.first_name})}" class="nav-link">Modificar tus datos</a></li>
+	          	<li class="nav-item"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username})}" class="nav-link">Modificar tus datos</a></li>
 				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/usuario/list}"  class="nav-link">Lista de Usuarios</a></li>
 				<li class="nav-item"><a class="nav-link" th:text=${#authentication.name}></a></li>
+				<li class="nav-item"><a th:href="@{/articulo/carrito}"  class="nav-link"><img src="/img/carrito-de-compras.png" width="40px" height="40px"></a></li>
 				<li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
 				
 			</ul>
@@ -43,7 +44,7 @@
 	    </div>
 	  </nav>
 
-
+	<div class="container">
 		<div class="starter-template">
 			<h1>Categorias</h1>
 			<div>
@@ -135,7 +136,7 @@
 				th:href="@{'/categoria/list?pageNumber=' + ${totalPages} +'&sortField=' + ${sortField} +'&stringFind=' + ${keyword}}">Last</a>
 			<span th:unless="${currentPage < totalPages}">Last</span>
 		</div>
-		
+		</div>
 		</section>
 
 	<script src="/js/jquery.min.js"></script>

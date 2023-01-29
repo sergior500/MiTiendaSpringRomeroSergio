@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysqlDawes:3306
--- Tiempo de generación: 23-01-2023 a las 01:02:28
+-- Tiempo de generación: 28-01-2023 a las 22:35:00
 -- Versión del servidor: 5.7.22
 -- Versión de PHP: 8.0.19
 
@@ -16,15 +16,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-CREATE DATABASE miTiendaSpringRomeroSergio;
+
 --
 -- Base de datos: `miTiendaSpringRomeroSergio`
 --
-USE `miTiendaSpringRomeroSergio`;
---
+
 -- --------------------------------------------------------
- CREATE USER 'romero'@'%' IDENTIFIED BY 'sergio';
- GRANT ALL PRIVILEGES ON miTiendaSpringRomeroSergio.* to 'romero'@'%';
+
 --
 -- Estructura de tabla para la tabla `category`
 --
@@ -73,9 +71,8 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`id`, `title`, `description_movie`, `price`, `category_id`, `img`, `stock`) VALUES
-(1, 'L-Shaped Room, The', 'diam', 3.72, 6, NULL, 30),
-(2, 'Sahara', 'odio', 3.49, 4, NULL, 30),
-(3, 'Himizu', 'donec odio', 3.87, 4, NULL, 30),
+(2, 'Sahara ', 'odio', 3.49, 1, NULL, 28),
+(3, 'Himizu', 'donec odio', 3.87, 4, NULL, 28),
 (4, 'Solaris', 'odio', 6.13, 7, NULL, 30),
 (5, 'Daydream Nation', 'orci', 5.26, 10, NULL, 30),
 (6, 'Siegfried', 'at feugiat', 9.05, 7, NULL, 30),
@@ -183,10 +180,17 @@ INSERT INTO `movies` (`id`, `title`, `description_movie`, `price`, `category_id`
 
 CREATE TABLE `orders` (
   `cod` int(11) NOT NULL,
-  `date_order` date NOT NULL,
   `iva` int(20) NOT NULL,
-  `username` varchar(50) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `date` datetime(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `orders`
+--
+
+INSERT INTO `orders` (`cod`, `iva`, `username`, `date`) VALUES
+(2, 21, 'sergio', '2023-01-28 23:34:35.767065');
 
 -- --------------------------------------------------------
 
@@ -195,10 +199,18 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `purchase` (
-  `cod` int(50) NOT NULL,
   `id_movie` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `id_purchase` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `purchase`
+--
+
+INSERT INTO `purchase` (`id_movie`, `quantity`, `id_purchase`) VALUES
+(2, 2, 2),
+(3, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -216,7 +228,7 @@ CREATE TABLE `users` (
   `email` varchar(30) NOT NULL,
   `verification_code` varchar(255) DEFAULT NULL,
   `admin` bit(1) NOT NULL,
-  `image` varchar(300) DEFAULT 'https://res.cloudinary.com/df7eewfeo/image/upload/v1674464819/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail_cnj3wp.png'
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -224,8 +236,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `first_name`, `role`, `verificationCode`, `enabled`, `email`, `verification_code`, `admin`, `image`) VALUES
-('admin', '$2a$10$xDMWmsMMgu4PoKuFqdduFuz2wLzqAJPrwds0qXXjT1tARB7O4RIvy', 'admin', 'ADMIN', NULL, b'1', 'romeroromerosergio@gmail.com', 'lr6RaxkqszesVhlDaiOAUIuFiYKmI1A4eTP1BrzLht4nZYmVgFEiWICHr6L7hIMW', b'0', 'https://res.cloudinary.com/df7eewfeo/image/upload/v1674464819/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail_cnj3wp.png'),
-('sergio', '$2a$10$fuUASL7nRmIjqhU3zRyXk.TdoQ2ucviNTeHCglADGmzAWpvsttOCy', 'sergio', 'USER', NULL, b'1', 'sergior500@gmail.com', 'DbJQMfxZrOO9iZoVVvsXaAWBvslncPRYsT5lAcdx2n6mTX85K5CtpVabuBLsUFLI', b'0', 'http://res.cloudinary.com/df7eewfeo/image/upload/v1674464189/tcsirlhnquwilbcpownh.jpg');
+('admin', '$2a$10$xDMWmsMMgu4PoKuFqdduFuz2wLzqAJPrwds0qXXjT1tARB7O4RIvy', 'admin', 'ADMIN', NULL, b'1', 'romeroromerosergio@gmail.com', 'lr6RaxkqszesVhlDaiOAUIuFiYKmI1A4eTP1BrzLht4nZYmVgFEiWICHr6L7hIMW', b'0', 'http://res.cloudinary.com/df7eewfeo/image/upload/v1674937775/rkvjchde7ggttp7rdrlg.png'),
+('sergio', '$2a$10$fuUASL7nRmIjqhU3zRyXk.TdoQ2ucviNTeHCglADGmzAWpvsttOCy', 'sergio', 'USER', NULL, b'1', 'sergior500@gmail.com', 'DbJQMfxZrOO9iZoVVvsXaAWBvslncPRYsT5lAcdx2n6mTX85K5CtpVabuBLsUFLI', b'0', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -256,9 +268,9 @@ ALTER TABLE `orders`
 -- Indices de la tabla `purchase`
 --
 ALTER TABLE `purchase`
-  ADD PRIMARY KEY (`cod`,`id_movie`),
-  ADD KEY `cod` (`cod`),
-  ADD KEY `id_movie` (`id_movie`);
+  ADD PRIMARY KEY (`id_movie`,`id_purchase`),
+  ADD KEY `id_movie` (`id_movie`),
+  ADD KEY `FK6lt376sl5fc3xf08vwi59h0r5` (`id_purchase`);
 
 --
 -- Indices de la tabla `users`
@@ -274,7 +286,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `movies`
@@ -286,7 +298,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -296,7 +308,7 @@ ALTER TABLE `orders`
 -- Filtros para la tabla `movies`
 --
 ALTER TABLE `movies`
-  ADD CONSTRAINT `FK_movies` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_movies` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
 -- Filtros para la tabla `orders`
@@ -308,7 +320,7 @@ ALTER TABLE `orders`
 -- Filtros para la tabla `purchase`
 --
 ALTER TABLE `purchase`
-  ADD CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`cod`) REFERENCES `orders` (`cod`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK6lt376sl5fc3xf08vwi59h0r5` FOREIGN KEY (`id_purchase`) REFERENCES `orders` (`cod`),
   ADD CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`id_movie`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

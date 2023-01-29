@@ -1,7 +1,48 @@
 <!DOCTYPE>
 <html>
-<body>
+<head>
+  	<title>Lista Categoria</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+	</head>
+<body>
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	    	<a class="navbar-brand">Cine<span>Romero</span></a>
+	    	<form action="#" class="searchform order-sm-start order-lg-last">
+          <div class="form-group d-flex">
+            <input type="text" class="form-control pl-3" placeholder="Search" name="stringFind"
+			id="stringFind" size="50" th:value="${keyword}">
+            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+          </div>
+        </form>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/categoria/add}"  class="nav-link">Añadir Categoria</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/articulo/add}"  class="nav-link">Añadir Pelicula</a></li>
+	        	<li class="nav-item"><a th:href="@{/categoria/list}" class="nav-link">Lista de Categorias</a></li>
+	        	<li class="nav-item"><a th:href="@{/articulo/list}" class="nav-link">Lista de Artículos</a></li>
+	          	<li class="nav-item"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username})}" class="nav-link">Modificar tus datos</a></li>
+				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/usuario/list}"  class="nav-link">Lista de Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link" th:text=${#authentication.name}></a></li>
+				<li class="nav-item active"><a th:href="@{/articulo/carrito}"  class="nav-link"><img src="/img/carrito-de-compras.png" width="40px" height="40px"></a></li>
+				<li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
+				
+			</ul>
+	      </div>
+	    </div>
+	  </nav>
 <div class="starter-template">
 			<h1>Listado de Elementos</h1>
 			<div>
@@ -9,8 +50,9 @@
 				<table class="table">
 					<thead>
 						<tr>
+						
 							<th>Title</th>
-							<th>Category</th>
+							<th>Category</th> 
 							<th>Price</th>
 							<th>Quantity</th>
 						</tr>
@@ -20,7 +62,7 @@
 						<tr th:each="movie :${moviesList.keySet()}">
 							<td th:text="${movie.title}"></td>
 							<td th:text="${movie.category.genres}"></td>
-							<td th:text="${movie.price}"></td>
+							<td th:text="${movie.price * moviesList.get(movie)}"></td>
 							<td th:text="${moviesList.get(movie)}"></td>
 							
 
@@ -37,6 +79,6 @@
 				</form>
 			</div>
 		</div>
-
+</div>
 </body>
 </html>

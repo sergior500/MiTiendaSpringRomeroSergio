@@ -92,6 +92,7 @@ public class CarritoController {
 			
 			
 		}
+		c.removeAllMovies();
 		
 		return REDIRECT_ITEM;
 	}

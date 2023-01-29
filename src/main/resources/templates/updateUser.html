@@ -40,6 +40,7 @@
 	          	<li class="nav-item active"><a th:href="@{'/usuario/update'(username=${#authentication.principal.username},name=${#authentication.principal.first_name})}" class="nav-link">Modificar tus datos</a></li>
 				<li class="nav-item"><a th:if="${#authentication.principal.role == 'ADMIN'}" th:href="@{/usuario/list}"  class="nav-link">Lista de Usuarios</a></li>
 				<li class="nav-item"><a class="nav-link" th:text=${#authentication.name}></a></li>
+				<li class="nav-item"><a th:href="@{/articulo/carrito}"  class="nav-link"><img src="/img/carrito-de-compras.png" width="40px" height="40px"></a></li>
 				<li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log Out</a></li>
 				
 			</ul>

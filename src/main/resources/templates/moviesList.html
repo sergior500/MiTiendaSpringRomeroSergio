@@ -45,7 +45,7 @@
 	  </nav>
 
 
-
+<div class="container">
 		<div class="starter-template">
 			<h1>Listado de Elementos</h1>
 			<div>
@@ -91,7 +91,7 @@
 									<button class="btn btn-warning">Actualizar</button>
 							</a></td></span>
 							<td>
-							<form th:action="@{/articulo/carrito/add}">
+							<form th:action="@{/articulo/carrito/add}" th:if="${movie.stock >0}">
 								<input name = "id" type="hidden" th:value="${movie.id}"></input> 
 								<input name = "quantity" type ="number" min="1" th:max="${movie.stock}">
 								<button class="btn btn-warning" type="submit">Add to Cart</button>

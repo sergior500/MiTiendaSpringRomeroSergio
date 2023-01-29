@@ -17,11 +17,27 @@ public class Carrito {
 	public void addCarrito(Movies m1, Integer quatity) {
 		
 		if (m1 != null) {
-			if(this.moviesMap.containsKey(m1)) {
-				this.moviesMap.put(m1, this.moviesMap.get(m1) + quatity);
+			if(this.moviesMap.keySet().size()>0) {
+				for(Movies p1 : this.moviesMap.keySet()) {
+					if(p1.getTitle().equals(m1.getTitle())){
+						if(p1.getStock()>=(this.getMoviesMap().get(p1) + quatity)) {
+							this.moviesMap.put(p1, this.moviesMap.get(p1) + quatity);
+						}else {
+							this.moviesMap.put(p1, m1.getStock());
+						}		
+					}else {
+						this.moviesMap.put(m1, quatity);
+					}
+				}
 			}else {
 				this.moviesMap.put(m1, quatity);
-			}
+				}
+			
+//			if(this.moviesMap.containsKey(m1)) {
+//				this.moviesMap.put(m1, this.moviesMap.get(m1) + quatity);
+//			}else {
+//				this.moviesMap.put(m1, quatity);
+//			}
 		}
 		
 	}
